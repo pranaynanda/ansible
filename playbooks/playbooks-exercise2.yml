@@ -1,0 +1,10 @@
+---
+- hosts: db
+  become: yes
+  tasks:
+    - shell: cat /etc/motd
+      register: output
+    - debug: msg="MOTD is empty"
+      when: output.stdout==""
+    - yum: name="httpd" state=latest
+      when: ansible_os_family == "RedHat"

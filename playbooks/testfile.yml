@@ -1,0 +1,15 @@
+---
+- hosts: db
+  tasks:
+    - name: copy file to server
+      copy: src=test.sh dest=/home/ansible/test.sh mode=0755
+    
+    - name: Run the script
+      command: /home/ansible/test.sh
+      register: out
+      ignore_errors: yes
+    
+    - debug: 
+        msg: "STDOUT - {{ out.stdout }}"
+    - debug: 
+        msg: "{{ out.stderr }}"

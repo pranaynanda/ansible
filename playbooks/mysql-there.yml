@@ -1,0 +1,12 @@
+---
+- hosts: db
+  become: yes
+  tasks: 
+    - name: Install mysqld
+      yum: name=mysql-server state=latest
+      ignore_errors: yes
+      register: there
+
+    - name: start mysql if there
+      service: name=mysqld state=started
+      register: running

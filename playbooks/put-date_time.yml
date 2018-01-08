@@ -1,0 +1,14 @@
+---
+- hosts: single
+  vars:
+    date_time: "{{ansible_date_time.date}} {{ansible_date_time.time}}"
+  tasks:
+  - name: write time to template
+    template: 
+      src: date-time.j2
+      dest: /home/ansible/date-time.txt
+  - name: echo date time in template
+    command: cat /home/ansible/date-time.txt 
+    register: output
+  - name: echo output
+    debug: msg={{output.stdout}}

@@ -1,0 +1,20 @@
+---
+- hosts: local
+  become: yes
+  tasks:
+    - name: copy file from /etc/ansible/hosts file to /home/ansible
+      copy: src=/etc/ansible/hosts dest=/home/ansible
+- hosts: db
+  become: yes
+  tasks:
+    - name: install applications
+      yum: name="{{ item }}" state=latest
+      with_items:
+          - httpd
+          - php
+          - php-mysql
+          - elinks
+      tags: remove
+    
+    - name: start service
+      service: name=httpd state=started
