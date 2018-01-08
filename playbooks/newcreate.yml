@@ -1,0 +1,21 @@
+---
+- hosts: db
+  tasks:
+   - name: multiple items - "{{ item }}"
+     file:
+      state: touch
+      path: /home/ansible/{{ item }}
+     with_items:
+        - file_no_1
+        - file_no_2
+        - file_no_3
+
+   - name: list files - "{{ item }}"
+     shell: ls -la /home/ansible/{{ item }}
+     with_items:
+        - file_no_1
+        - file_no_2
+        - file_no_3
+     register: op
+   
+   - debug: msg="stdout_lines={{op}}"

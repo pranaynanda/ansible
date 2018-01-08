@@ -1,0 +1,13 @@
+---
+- hosts: db
+  become: yes
+  tasks:
+    - name: echo ansible_os_family
+      debug:
+        msg: "{{ansible_os_family}}"
+    - name: if OS is redhat then install apache 
+      yum:
+        name: httpd
+        state: latest
+      when: ansible_os_family == "RedHat"
+

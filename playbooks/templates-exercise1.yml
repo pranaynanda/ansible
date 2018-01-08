@@ -1,0 +1,17 @@
+---
+- hosts: db
+  become: yes
+  vars:
+    description: "{{ansible_hostname}}"
+    createfile: True
+  tasks:
+    - name: use template to copy
+      template:
+        src: template1.j2
+        dest: /home/ansible/index.html
+    
+    - name: touch variable_was_true
+      file: 
+        state: touch
+        path:  /home/ansible/variable_was_true
+      when: createfile

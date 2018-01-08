@@ -1,0 +1,5 @@
+---
+- hosts: local
+  tasks:
+    - debug: msg="The hostname is {{ansible_hostname}}"
+    - debug: msg="The OS Version is {{ansible_distribution}} {{ansible_distribution_major_version}}"
